@@ -1,4 +1,4 @@
-pipeline {
+rpipeline {
     agent any 
     stages {
         stage('Compile and Clean') { 
@@ -19,26 +19,26 @@ pipeline {
             steps {
                 echo "Hello Java Express"
                 sh 'ls'
-                sh 'docker build -t  oxidane777/docker_jenkins_springboot:${BUILD_NUMBER} .'
+                sh 'docker build -t  deepgori01/docker_jenkins_springboot:${BUILD_NUMBER} .'
             }
         }
         stage('Docker Login'){
             
             steps {
                  withCredentials([string(credentialsId: 'DockerId', variable: 'Dockerpwd')]) {
-                    sh "docker login -u oxidane777 -p ${Dockerpwd}"
+                    sh "docker login -u deepgori01 -p ${Dockerpwd}"
                 }
             }                
         }
         stage('Docker Push'){
             steps {
-                sh 'docker push oxidane777/docker_jenkins_springboot:${BUILD_NUMBER}'
+                sh 'docker push deepgori01/docker_jenkins_springboot:${BUILD_NUMBER}'
             }
         }
         stage('Docker deploy'){
             steps {
                
-                sh 'docker run -itd -p  8081:8080 oxidane777/docker_jenkins_springboot:${BUILD_NUMBER}'
+                sh 'docker run -itd -p  8081:8080 deepgori01/docker_jenkins_springboot:${BUILD_NUMBER}'
             }
         }
         stage('Archving') { 
