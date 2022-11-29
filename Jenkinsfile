@@ -1,4 +1,4 @@
-rpipeline {
+pipeline {
     agent any 
     stages {
         stage('Compile and Clean') { 
